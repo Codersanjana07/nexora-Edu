@@ -1,0 +1,13 @@
+{
+    "manifest_version":3,
+    "name":"NAXORA AI powered digital Well-being Assistant",
+    "Version":"1.0"
+    "description": "NEXORA AI powered  productivity & Digital Well-being Assistant",
+    "permission":["stored","tabs","activeTabs"],
+    "host-permission": 
+    ["https://googleapis.com"],
+    }
+    "action"
+
+
+}
