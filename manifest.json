@@ -15,7 +15,7 @@
         "_execute_action": {
             "suggest_key": {
                 "default": "Ctrl+Shift+Y",
-                "mac": "Ctrl+Shift+Y"
+                "mac": "MacCtrl+Shift+Y"
             },
             "description": "Open nexora project popup"
         }
