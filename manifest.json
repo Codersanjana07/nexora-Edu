@@ -1,13 +1,25 @@
 {
-    "manifest_version":3,
-    "name":"NAXORA AI powered digital Well-being Assistant",
-    "Version":"1.0"
-    "description": "NEXORA AI powered  productivity & Digital Well-being Assistant",
-    "permission":["stored","tabs","activeTabs"],
-    "host-permission": 
-    ["https://googleapis.com"],
+    "manifest_version": 3,
+    "name":"nexora project",
+    "version": "1.0",
+    "description": "NEXORA 2026- AI powered  Digital Well-being Assistant",
+    "permission": ["storage","tabs","activeTabs"],
+    "host-permission": [
+    "https://googleapis.com*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Open nexora project"
+    },
+    "commands":{
+        "_execute_action": {
+            "suggest_key": {
+                "default": "Ctrl+Shift+Y",
+                "mac": "Ctrl+Shift+Y"
+            },
+            "description": "Open nexora project popup"
+        }
     }
-    "action"
-
-
 }
+
+            
