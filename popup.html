@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-    <style>
-     body { 
-        width: 340px;
-        font-family:"Segoe UI", Arial, sans-serif;
-        background-color: lch(9.83% 67.86 305.8);
-        color: beige;
-        margin: 0px;
-        padding: 18px;
-     }
-      .header {
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { 
+      width: 340px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #0f172a;
+      color: beige;
+      margin: 0px;
+      padding: 18px;
+    }
+    .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -19,40 +19,40 @@
       padding-bottom: 12px;
       margin-bottom: 16px;
     }
-
-      .title{color: #818cf8; font-size:18px; font-weight: bold;margin: 0; }
-      .badge {
-        background-color: rgb(225, 224, 221);
-        color: azure;
-        font-size:11px;
-        margin: 2px 8px;
-        border-radius: 12px;
-        border: 1px solid #4f46e5;
-      }
-      .card {
-         background-color: #1f2937;
-         border: 1px solid #374151;
-         border-radius: 12px;
-         padding: 16px;
-         margin-bottom: 16px;
-         text-align: center;
-      }
-      .card-title { font-size: 12px;color: #9ca3af; margin: 0 0 8px 0;letter-spacing: 0.05;}
-      .font-display { font-size: 14px; font-weight: 800; color: #ffffff; margin: 0; }
-.btn {
-
-         width: 100%;
-         background-color: #4f46e5;
-         color: white;
-         border: none;
-         padding: 12px;
-         border-radius: 8px;
-         font-weight: bold;
-         cursor: pointer;
-         font-size: 14px;
-      }
-      .btn-ai {background-color: #059669;margin: 0;}
-       .textarea {
+    .title { color: #818cf8; font-size: 18px; font-weight: bold; margin: 0; }
+    .badge {
+      background-color: #4f46e5;
+      color: azure;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid #818cf8;
+    }
+    .card {
+      background-color: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .card-title { font-size: 12px; color: #9ca3af; margin: 0 0 8px 0; letter-spacing: 0.05em; font-weight: 600; }
+    .timer-display { font-size: 36px; font-weight: 800; color: #ffffff; margin: 10px 0; letter-spacing: 1px; }
+    .btn {
+      width: 100%;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .btn:disabled { background-color: #4b5563; cursor: not-allowed; }
+    .btn-ai { background-color: #059669; margin-top: 10px; }
+    .textarea {
       width: 93%;
       background-color: #111827;
       border: 1px solid #374151;
@@ -63,6 +63,10 @@
       resize: none;
       outline: none;
     }
+    .status-alert { margin-top: 10px; padding: 10px; background-color: #7f1d1d; border: 1px solid #b91c1c; border-radius: 8px; font-size: 12px; display: none; text-align: left; color: #fca5a5; }
+    .reward-box { margin-top: 10px; padding: 12px; background-color: #064e3b; border: 1px solid #059669; border-radius: 8px; font-size: 13px; display: none; text-align: center; color: #34d399; font-weight: bold; }
+    .notif-box { text-align: left; font-size: 12px; color: #e5e7eb; background-color: #111827; padding: 10px; border-radius: 8px; border: 1px solid #374151; margin-top: 8px; }
+    .notif-item { border-left: 3px solid #10b981; padding-left: 6px; margin-bottom: 6px; font-size: 11px; }
     .response-box {
       margin-top: 12px;
       padding: 12px;
@@ -81,13 +85,27 @@
 
   <div class="header">
     <h1 class="title">⚡ NexoraMind AI</h1>
-    <span class="badge">Solo Mode</span>
+    <span class="badge" id="modeBadge">Normal Mode</span>
   </div>
 
   <div class="card">
-    <p class="card-title">⏱️ FOCUS SESSION</p>
-    <div id="timer" class="timer-display">25:00</div>
-    <button id="startBtn" class="btn">Start Focus</button>
+    <p class="card-title">⏱️ FOCUS SESSION (5 MINS)</p>
+    <div id="timer" class="timer-display">05:00</div>
+    <button id="startBtn" class="btn">Start Focus Mode</button>
+    <div id="blockAlert" class="status-alert">
+      🛑 <b>Tab Blocked!</b> Other tabs are hidden until the 5-minute timer finishes.
+    </div>
+    <div id="rewardBox" class="reward-box">
+      🎉 <b>Reward Unlocked!</b> Focus session complete. You can now use any window or tab freely!
+    </div>
+  </div>
+
+  <div class="card" style="text-align: left;">
+    <p class="card-title">💼 IMPORTANT AI NOTIFICATIONS</p>
+    <div class="notif-box">
+      <div class="notif-item"><b>[Priority]</b> Boss: "Please check the updated repository."</div>
+      <div class="notif-item" style="border-left-color: #3b82f6;"><b>[Email]</b> Client: "Meeting scheduled at 4 PM."</div>
+    </div>
   </div>
 
   <div class="card" style="text-align: left;">

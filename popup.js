@@ -3,15 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let startBtn = document.getElementById('startBtn');
     let aiBtn = document.getElementById('aiBtn');
     let noteInput = document.getElementById('noteInput');
-    let responseBox = document.getElementById('aiResponsebox');
+    let responseBox = document.getElementById('aiResponseBox');
     let responseDisplay = document.getElementById('aiResponse');
-    let timeLeft = 30 * 60;
+    let modeBadge = document.getElementById('modeBadge');
+    let rewardBox = document.getElementById('rewardBox');
+    let blockAlert = document.getElementById('blockAlert');
+    
+    let timeLeft = 5 * 60;
     let timeId = null;
+
+    chrome.runtime.onMessage.addListener((message) => {
+        if (message.action === "tabBlocked" && blockAlert) {
+            blockAlert.style.display = "block";
+            setTimeout(() => { blockAlert.style.display = "none"; }, 4000);
+        }
+    });
 
     function PlayBeepSound() {
         try {
             let msg = new SpeechSynthesisUtterance();
-            msg.text = "Focus session complete that Outstanding job!";
+            msg.text = "Focus session complete. Outstanding job!";
             msg.lang = "en-US";
             msg.rate = 1.0;
             window.speechSynthesis.speak(msg);
@@ -23,23 +34,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (startBtn) {
         startBtn.addEventListener('click', () => {
             if (timeId == null) {
+                if (rewardBox) rewardBox.style.display = "none";
+                if (blockAlert) blockAlert.style.display = "none";
+                if (modeBadge) {
+                    modeBadge.textContent = "Focus Mode";
+                    modeBadge.style.backgroundColor = "#e11d48";
+                }
+                
                 startBtn.innerText = "Pause Focus";
                 startBtn.style.backgroundColor = "#d97706";
+
+                chrome.runtime.sendMessage({ action: "startFocus", duration: timeLeft });
+
                 timeId = setInterval(() => {
                     if (timeLeft <= 0) {
                         clearInterval(timeId);
                         PlayBeepSound();
-                        alert("Focus Session complete! outstanding Job!");
-                        timeLeft = 30 * 60;
+                        if (rewardBox) rewardBox.style.display = "block";
+                        
+                        timeLeft = 5 * 60;
                         timeId = null;
-                        startBtn.innerText = "Start Focus";
+                        startBtn.innerText = "Start Focus Mode";
                         startBtn.style.backgroundColor = "#4f46e5";
-                        timerDisplay.innerText = "30:00";
+                        timerDisplay.innerText = "05:00";
+                        
+                        if (modeBadge) {
+                            modeBadge.textContent = "Normal Mode";
+                            modeBadge.style.backgroundColor = "#4f46e5";
+                        }
                     } else {
                         timeLeft--;
                         let minutes = Math.floor(timeLeft / 60);
                         let seconds = timeLeft % 60;
-                        timerDisplay.innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                        timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                     }
                 }, 1000);
             } else {
@@ -47,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeId = null;
                 startBtn.innerText = "Resume Focus";
                 startBtn.style.backgroundColor = "#4f46e5";
+                chrome.runtime.sendMessage({ action: "pauseFocus" });
             }
         });
     }
@@ -62,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (responseBox) responseBox.style.display = "block";
             if (responseDisplay) responseDisplay.innerText = "Connecting to Gemini Server...";
 
-            const API_KEY = "yOUR_AIP_HEY_HERE";
+            const API_KEY = "YOUR_API_KEY_HERE";
             const url = `https://googleapis.com{API_KEY}`;
 
             try {
@@ -76,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
 
-                if (data && data.candidates && data.candidates && data.candidates.content && data.candidates.content.parts && data.candidates.content.parts) {
-                    let aiText = data.candidates.content.parts.text;
+                if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                    let aiText = data.candidates[0].content.parts[0].text;
                     if (responseDisplay) responseDisplay.innerText = aiText;
                 } else {
                     if (responseDisplay) responseDisplay.innerText = "Stay focused! YouTube can wait. Your task: Complete your current coding module first.";

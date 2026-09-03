@@ -1,25 +1,32 @@
 {
-    "manifest_version": 3,
-    "name":"nexora project",
-    "version": "1.0",
-    "description": "NEXORA 2026- AI powered  Digital Well-being Assistant",
-    "permission": ["storage","tabs","activeTabs"],
-    "host-permission": [
-    "https://googleapis.com*"
-    ],
-    "action": {
-        "default_popup": "popup.html",
-        "default_title": "Open nexora project"
-    },
-    "commands":{
-        "_execute_action": {
-            "suggest_key": {
-                "default": "Ctrl+Shift+Y",
-                "mac": "MacCtrl+Shift+Y"
-            },
-            "description": "Open nexora project popup"
-        }
+  "manifest_version": 3,
+  "name": "Nexora Project",
+  "version": "1.0",
+  "description": "NEXORA 2026 - AI-Powered Digital Well-Being Assistant",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "notifications",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://*://*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Open Nexora Project"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "MacCtrl+Shift+Y"
+      },
+      "description": "Open Nexora Project Popup"
     }
+  }
 }
-
-            
