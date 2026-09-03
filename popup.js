@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (responseBox) responseBox.style.display = "block";
             if (responseDisplay) responseDisplay.innerText = "Connecting to Gemini Server...";
 
-            const API_KEY = "YOU_AIP_IS_HERE";
+            const API_KEY = "YOU_API";
             const url = `https://googleapis.com{API_KEY}`;
 
             try {
