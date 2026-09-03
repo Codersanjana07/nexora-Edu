@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
               if (detectedSite !== "") {
                 chrome.tabs.update(tab.id, { url: "about:blank" });
-                playSystemVoice(`Warning! ${detectedSite} is blocked. Please focus on your study.`);
+                playSystemVoice(`Warning! ${detectedSite} is blocked. Please focus on your work.`);
                 chrome.runtime.sendMessage({ action: "tabBlocked" }).catch(() => {});
               }
             }
