@@ -89,7 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (responseBox) responseBox.style.display = "block";
             if (responseDisplay) responseDisplay.innerText = "Connecting to Gemini Server...";
 
-            const API_KEY = "YOU_API";
+                       const API_KEY = ""; 
+            
+            if (API_KEY === "") {
+                setTimeout(() => {
+                    if (responseDisplay) {
+                        responseDisplay.innerText = "Stay focused! Distractions are temporary, success is permanent. Task: Turn off notifications and code for 15 mins.";
+                    }
+                }, 1000);
+                return;
+            }
+
             const url = `https://googleapis.com{API_KEY}`;
 
             try {
