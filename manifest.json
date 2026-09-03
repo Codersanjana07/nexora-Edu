@@ -3,7 +3,7 @@
   "name": "Nexora Project",
   "version": "1.0",
   "description": "NEXORA 2026 - AI-Powered Digital Well-Being Assistant",
-    "permissions": [
+  "permissions": [
     "storage",
     "tabs",
     "activeTab",
@@ -11,7 +11,6 @@
     "alarms",
     "tts"
   ],
-
   "host_permissions": [
     "http://*/*",
     "https://*/*"

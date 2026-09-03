@@ -1,126 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <style>
-    body { 
-      width: 340px;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background-color: #0f172a;
-      color: beige;
-      margin: 0px;
-      padding: 18px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #374151;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-    .title { color: #818cf8; font-size: 18px; font-weight: bold; margin: 0; }
-    .badge {
-      background-color: #4f46e5;
-      color: azure;
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 12px;
-      border: 1px solid #818cf8;
-    }
-    .card {
-      background-color: #1f2937;
-      border: 1px solid #374151;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-    .card-title { font-size: 12px; color: #9ca3af; margin: 0 0 8px 0; letter-spacing: 0.05em; font-weight: 600; }
-    .timer-display { font-size: 36px; font-weight: 800; color: #ffffff; margin: 10px 0; letter-spacing: 1px; }
-    .btn {
-      width: 100%;
-      background-color: #4f46e5;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-    .btn:disabled { background-color: #4b5563; cursor: not-allowed; }
-    .btn-ai { background-color: #059669; margin-top: 10px; }
-    .textarea {
-      width: 93%;
-      background-color: #111827;
-      border: 1px solid #374151;
-      color: white;
-      border-radius: 8px;
-      padding: 10px;
-      font-size: 13px;
-      resize: none;
-      outline: none;
-    }
-    .status-alert { margin-top: 10px; padding: 10px; background-color: #7f1d1d; border: 1px solid #b91c1c; border-radius: 8px; font-size: 12px; display: none; text-align: left; color: #fca5a5; }
-    .reward-box { margin-top: 10px; padding: 12px; background-color: #064e3b; border: 1px solid #059669; border-radius: 8px; font-size: 13px; display: none; text-align: center; color: #34d399; font-weight: bold; }
-    .notif-box { text-align: left; font-size: 12px; color: #e5e7eb; background-color: #111827; padding: 10px; border-radius: 8px; border: 1px solid #374151; margin-top: 8px; }
-    .notif-item { border-left: 3px solid #10b981; padding-left: 6px; margin-bottom: 6px; font-size: 11px; }
-    .response-box {
-      margin-top: 12px;
-      padding: 12px;
-      background-color: #111827;
-      border: 1px solid #374151;
-      border-radius: 8px;
-      font-size: 12px;
-      text-align: left;
-      display: none;
-    }
-    .response-title { color: #34d399; font-weight: bold; display: block; margin-bottom: 4px; }
-    .footer { text-align: center; font-size: 10px; color: #6b7280; margin-top: 16px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora Project</title>
+    <style>
+        body {
+            width: 320px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 15px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+        }
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background-color: #4f46e5;
+            font-weight: 600;
+        }
+        .timer-box {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e293b;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+        #timer {
+            font-size: 42px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #f43f5e;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        #startBtn {
+            background-color: #4f46e5;
+            color: white;
+            font-size: 14px;
+        }
+        .ai-section {
+            background-color: #1e293b;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        textarea {
+            width: 93%;
+            height: 50px;
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 4px;
+            color: white;
+            padding: 8px;
+            resize: none;
+            font-family: inherit;
+        }
+        #aiBtn {
+            background-color: #0ea5e9;
+            color: white;
+        }
+        .box {
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            line-height: 1.4;
+            display: none;
+        }
+        #aiResponseBox {
+            background-color: #0369a1;
+            border-left: 4px solid #38bdf8;
+        }
+        #rewardBox {
+            background-color: #15803d;
+            border-left: 4px solid #4ade80;
+            text-align: center;
+        }
+        #blockAlert {
+            background-color: #991b1b;
+            border-left: 4px solid #f43f5e;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <div class="title">Nexora Workspace</div>
+            <div id="modeBadge" class="badge">Normal Mode</div>
+        </div>
 
-  <div class="header">
-    <h1 class="title">⚡ NexoraMind AI</h1>
-    <span class="badge" id="modeBadge">Normal Mode</span>
-  </div>
+        <div class="timer-box">
+            <div id="timer">05:00</div>
+        </div>
 
-  <div class="card">
-    <p class="card-title">⏱️ FOCUS SESSION (5 MINS)</p>
-    <div id="timer" class="timer-display">05:00</div>
-    <button id="startBtn" class="btn">Start Focus Mode</button>
-    <div id="blockAlert" class="status-alert">
-      🛑 <b>Tab Blocked!</b> Other tabs are hidden until the 5-minute timer finishes.
+        <button id="startBtn">Start Focus Mode</button>
+
+        <div id="blockAlert" class="box">Distraction Blocked! Stay Focused.</div>
+        <div id="rewardBox" class="box">🎉 Session Completed! Enjoy your break.</div>
+
+        <div class="ai-section">
+            <div style="font-size: 13px; font-weight: 600; color: #94a3b8;">Distracted? Dump your thoughts here:</div>
+            <textarea id="noteInput" placeholder="E.g., I want to check Instagram..."></textarea>
+            <button id="aiBtn">Analyze with Nexora AI</button>
+            <div id="aiResponseBox" class="box">
+                <div id="aiResponse"></div>
+            </div>
+        </div>
     </div>
-    <div id="rewardBox" class="reward-box">
-      🎉 <b>Reward Unlocked!</b> Focus session complete. You can now use any window or tab freely!
-    </div>
-  </div>
-
-  <div class="card" style="text-align: left;">
-    <p class="card-title">💼 IMPORTANT AI NOTIFICATIONS</p>
-    <div class="notif-box">
-      <div class="notif-item"><b>[Priority]</b> Boss: "Please check the updated repository."</div>
-      <div class="notif-item" style="border-left-color: #3b82f6;"><b>[Email]</b> Client: "Meeting scheduled at 4 PM."</div>
-    </div>
-  </div>
-
-  <div class="card" style="text-align: left;">
-    <p class="card-title">🧠 AI QUICK THOUGHT CAPTURE</p>
-    <textarea id="noteInput" rows="3" class="textarea" placeholder="Type your distracted thought here..."></textarea>
-    <button id="aiBtn" class="btn btn-ai">🚀 Process with Gemini AI</button>
-    
-    <div id="aiResponseBox" class="response-box">
-      <span class="response-title">AI Insights:</span>
-      <p id="aiResponse" style="margin: 0;"></p>
-    </div>
-  </div>
-
-  <div class="footer">NEXORA 2026 • Digital Well-being Assistant</div>
-
-  <script src="popup.js"></script>
+    <script src="popup.js"></script>
 </body>
 </html>

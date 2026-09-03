@@ -32,13 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 startBtn.innerText = "Pause Focus";
                 startBtn.style.backgroundColor = "#d97706";
 
-                chrome.runtime.sendMessage({ action: "startBlocking" });
+                chrome.runtime.sendMessage({ action: "startFocus", duration: timeLeft });
 
                 timeId = setInterval(() => {
                     if (timeLeft <= 0) {
                         clearInterval(timeId);
                         chrome.runtime.sendMessage({ action: "playReleaseVoice" });
-                        chrome.runtime.sendMessage({ action: "stopBlocking" });
                         
                         if (rewardBox) rewardBox.style.display = "block";
                         
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeId = null;
                 startBtn.innerText = "Resume Focus";
                 startBtn.style.backgroundColor = "#4f46e5";
-                chrome.runtime.sendMessage({ action: "stopBlocking" });
+                chrome.runtime.sendMessage({ action: "pauseFocus" });
             }
         });
     }
@@ -72,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (aiBtn) {
         aiBtn.addEventListener('click', async () => {
             let noteText = noteInput.value.trim();
+
             if (!noteText) {
                 alert("Please write something first!");
                 return;
@@ -90,9 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         contents: [{ parts: [{ text: `The user is distracted and wrote this thought: "${noteText}". Provide a 1-sentence motivational advice and convert the thought into 1 clear actionable task.` }] }]
                     })
                 });
+
                 const data = await response.json();
-                if (data && data.candidates && data.candidates.content && data.candidates.content.parts) {
-                    let aiText = data.candidates.content.parts.text;
+
+                if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                    let aiText = data.candidates[0].content.parts[0].text;
                     if (responseDisplay) responseDisplay.innerText = aiText;
                 } else {
                     if (responseDisplay) responseDisplay.innerText = "Stay focused! YouTube can wait. Your task: Complete your current coding module first.";
