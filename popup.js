@@ -12,12 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let timeLeft = 5 * 60;
     let timeId = null;
 
-    chrome.runtime.onMessage.addListener((message) => {
-        if (message.action === "tabBlocked" && blockAlert) {
-            blockAlert.style.display = "block";
-            setTimeout(() => { blockAlert.style.display = "none"; }, 4000);
-        }
-    });
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage) {
+        chrome.runtime.onMessage.addListener((message) => {
+            if (message.action === "tabBlocked" && blockAlert) {
+                blockAlert.style.display = "block";
+                setTimeout(() => { blockAlert.style.display = "none"; }, 4000);
+            }
+        });
+    }
 
     if (startBtn) {
         startBtn.addEventListener('click', () => {
@@ -32,12 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 startBtn.innerText = "Pause Focus";
                 startBtn.style.backgroundColor = "#d97706";
 
-                chrome.runtime.sendMessage({ action: "startFocus", duration: timeLeft });
+                if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+                    chrome.runtime.sendMessage({ action: "startFocus", duration: timeLeft });
+                }
 
                 timeId = setInterval(() => {
                     if (timeLeft <= 0) {
                         clearInterval(timeId);
-                        chrome.runtime.sendMessage({ action: "playReleaseVoice" });
+                        
+                        if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+                            chrome.runtime.sendMessage({ action: "playReleaseVoice" });
+                        }
                         
                         if (rewardBox) rewardBox.style.display = "block";
                         
@@ -63,7 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeId = null;
                 startBtn.innerText = "Resume Focus";
                 startBtn.style.backgroundColor = "#4f46e5";
-                chrome.runtime.sendMessage({ action: "pauseFocus" });
+                
+                if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+                    chrome.runtime.sendMessage({ action: "pauseFocus" });
+                }
             }
         });
     }
@@ -79,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (responseBox) responseBox.style.display = "block";
             if (responseDisplay) responseDisplay.innerText = "Connecting to Gemini Server...";
 
-            const API_KEY = "YOUR_API_KEY_HERE";
+            const API_KEY = "AQ.Ab8RN6JUrtTA0gjNxTb1q8iherFk8zAxADpSHNmWvCMNp0fzsw";
             const url = `https://googleapis.com{API_KEY}`;
 
             try {
@@ -101,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 if (responseDisplay) responseDisplay.innerText = "Stay focused! Distractions are temporary, success is permanent. Task: Turn off notifications and code for 15 mins.";
-                console.error(error);
             }
         });
     }

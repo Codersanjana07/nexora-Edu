@@ -31,6 +31,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (isFocusModeActive && changeInfo.url) {
     const url = changeInfo.url.toLowerCase();
+    
+    if (url.startsWith("chrome-extension://")) {
+      return;
+    }
+
     const detectedSite = getSiteName(url);
 
     if (detectedSite !== "") {
